@@ -21,8 +21,9 @@ func Get(v interface{}, q string) (interface{}, error) {
 		return getArrVal(v.([]interface{}), q)
 	case map[string]interface{}:
 		return getMapVal(v.(map[string]interface{}), q)
+	default:
+		return nil, ErrUnknownType
 	}
-	return nil, ErrUnknownType
 }
 
 func getMapVal(m map[string]interface{}, q string) (interface{}, error) {
@@ -51,7 +52,7 @@ func mapPart(q string) (string, string) {
 
 func getArrVal(a []interface{}, q string) (interface{}, error) {
 	i, q := arrPart(q)
-	if i >= len(a) {
+	if i == -1 || i >= len(a) {
 		return nil, ErrOutOfBounds
 	}
 	v := a[i]

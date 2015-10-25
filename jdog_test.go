@@ -31,6 +31,14 @@ func TestTopLevelSliceIndex(t *testing.T) {
 	v, err := Get(a, "[0]")
 	assert.NoError(t, err)
 	assert.Equal(t, "a", v)
+
+	v, err = Get(a, "[5]")
+	assert.Equal(t, ErrOutOfBounds, err)
+	assert.Nil(t, v)
+
+	// make strconv.Atoi fail
+	_, err = Get(a, "[9999999999999999999999999999999999999999]")
+	assert.Equal(t, ErrOutOfBounds, err)
 }
 
 func TestNestedSliceIndex(t *testing.T) {
@@ -63,6 +71,16 @@ func TestNestedCrazy(t *testing.T) {
 	v, err = Get(m, "baz.qux.wowe[0].hello")
 	assert.NoError(t, err)
 	assert.Equal(t, "dog", v)
+
+	v, err = Get(m, "derp")
+	assert.Equal(t, ErrNotFound, err)
+	assert.Nil(t, v)
+}
+
+func TestUnknownType(t *testing.T) {
+	m := 5
+	_, err := Get(m, "hello")
+	assert.Equal(t, ErrUnknownType, err)
 }
 
 func TestArrPart(t *testing.T) {
