@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	ErrUnknownType = errors.New("unkown type")
+	ErrUnknownType = errors.New("unknown type")
 	ErrNotFound    = errors.New("not found")
 	ErrOutOfBounds = errors.New("array index out of bounds")
 )
