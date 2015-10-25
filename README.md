@@ -5,7 +5,7 @@ dig through piles of json with ease
 
 ## usage
 
-```golang
+```go
 var m interface{}
 json.Unmarshal([]byte(`{
   "foo": "bar",
