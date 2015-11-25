@@ -62,8 +62,11 @@ func getArrVal(a []interface{}, q string) (interface{}, error) {
 	return Get(v, q)
 }
 
+var arrayRegex = regexp.MustCompile("^\\[([0-9]+)\\]")
+
 func arrPart(q string) (int, string) {
-	matches := regexp.MustCompile("^\\[([0-9]+)\\]").FindStringSubmatch(q)
+	matches := arrayRegex.FindStringSubmatch(q)
+	arrayRegex.FindStringSubmatch(q)
 	if len(matches) != 2 {
 		return -1, ""
 	}
