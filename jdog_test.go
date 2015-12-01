@@ -39,6 +39,9 @@ func TestTopLevelSliceIndex(t *testing.T) {
 	// make strconv.Atoi fail
 	_, err = Get(a, "[9999999999999999999999999999999999999999]")
 	assert.Equal(t, ErrOutOfBounds, err)
+
+	_, err = Get(a, "[-1]")
+	assert.Equal(t, ErrOutOfBounds, err)
 }
 
 func TestNestedSliceIndex(t *testing.T) {
